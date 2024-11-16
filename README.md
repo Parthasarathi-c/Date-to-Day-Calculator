@@ -16,6 +16,8 @@ This is a simple web-based calculator that determines the day of the week based 
 - CSS
 - JavaScript
 
+## To visit my web page
+[website link]https://parthasarathi-c.github.io/Date-to-Day-Calculator/ .
 ## License
 This project is licensed under a Custom License. You must obtain permission from the author before using or distributing the code. See the [LICENSE](LICENCE) file for more details.
 
