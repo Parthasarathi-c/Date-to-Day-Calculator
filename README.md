@@ -17,4 +17,5 @@ This is a simple web-based calculator that determines the day of the week based 
 - JavaScript
 
 ## License
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under a Custom License. You must obtain permission from the author before using or distributing the code. See the [LICENSE](LICENCE) file for more details.
+
