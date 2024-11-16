@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date to Day Calculator</title>
+    <style>
+        /* Styling the entire body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('https://th.bing.com/th/id/OIP.LJg59LWYsRN7QyVlgn-nWQHaEK?w=307&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Main container for the form */
+        .container {
+            background: rgba(0, 123, 255, 0.1); /* Light blue background for the container */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            border: 2px solid rgba(0, 123, 255, 0.3); /* Border for the container */
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input fields styling */
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #007BFF; /* Blue border for input fields */
+            background-color: rgba(240, 248, 255, 0.9); /* Light blue background */
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Button styling */
+        button {
+            width: 50%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Error messages */
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        /* Result section */
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        /* Advanced styling for input focus */
+        input:focus {
+            outline: none;
+            border-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Date to Day Calculator</h1>
+        <label for="date">Enter Date:</label><br>
+        <input type="number" id="day" placeholder="Day (1-31)">
+        <div class="error" id="dayError"></div>
+        <input type="number" id="month" placeholder="Month (1-12)">
+        <div class="error" id="monthError"></div>
+        <input type="number" id="year" placeholder="Year">
+        <div class="error" id="yearError"></div>
+        <button onclick="calculateDay()">Find Day</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        function isLeapYear(year) {
+            if (year % 100 === 0 && year % 400 !== 0) {
+                return false;
+            }
+            if (year % 4 === 0) {
+                return true;
+            }
+            return false;
+        }
+
+        function yearOffset(year) {
+            const x = year % 400;
+            const m = Math.floor(x / 4);
+            const n = x - m;
+            return ((m * 2) + n) % 7;
+        }
+
+        function monthOffset(month, year) {
+            const monthOffsets = [3, 0, 3, 2, 3, 2, 3, 3, 2, 3, 2, 3]; // Normal year offsets
+            if (isLeapYear(year)) {
+                monthOffsets[1] = 1; // Adjust for February in leap year
+            }
+            let offset = 0;
+            for (let i = 0; i < month; i++) {
+                offset += monthOffsets[i];
+            }
+            return offset % 7;
+        }
+
+        function calculateDay() {
+            const day = parseInt(document.getElementById("day").value, 10);
+            const month = parseInt(document.getElementById("month").value, 10);
+            const year = parseInt(document.getElementById("year").value, 10);
+
+            // Reset error messages
+            document.getElementById("dayError").textContent = "";
+            document.getElementById("monthError").textContent = "";
+            document.getElementById("yearError").textContent = "";
+
+            let isValid = true;
+
+            if (isNaN(day) || day < 1 || day > 31) {
+                document.getElementById("dayError").textContent = "Invalid day. Must be between 1 and 31.";
+                isValid = false;
+            }
+
+            if (isNaN(month) || month < 1 || month > 12) {
+                document.getElementById("monthError").textContent = "Invalid month. Must be between 1 and 12.";
+                isValid = false;
+            }
+
+            if (isNaN(year) || year < 1) {
+                document.getElementById("yearError").textContent = "Invalid year. Must be a positive number.";
+                isValid = false;
+            }
+
+            if (!isValid) {
+                document.getElementById("result").textContent = "";
+                return;
+            }
+
+            const dayOffset = day % 7;
+            const monthOffsetValue = monthOffset(month - 1, year); // Convert to zero-indexed
+            const yearOffsetValue = yearOffset(year - 1);
+
+            const totalOffset = (dayOffset + monthOffsetValue + yearOffsetValue) % 7;
+
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            document.getElementById("result").textContent = `The day is: ${daysOfWeek[totalOffset]}`;
+        }
+    </script>
+</body>
+</html>
