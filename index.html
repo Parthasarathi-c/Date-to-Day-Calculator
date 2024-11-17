@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date to Day Calculator</title>
     <style>
-        /* Styling the entire body */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -19,36 +18,32 @@
             align-items: center;
         }
 
-        /* Main container for the form */
         .container {
-            background: rgba(0, 123, 255, 0.1); /* Light blue background for the container */
+            background: rgba(0, 123, 255, 0.1); 
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
             width: 350px;
             text-align: center;
-            border: 2px solid rgba(0, 123, 255, 0.3); /* Border for the container */
+            border: 2px solid rgba(0, 123, 255, 0.3);
         }
 
-        /* Headings */
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
 
-        /* Input fields styling */
         input {
             width: 80%;
             padding: 10px;
             margin: 5px 0;
-            border: 1px solid #007BFF; /* Blue border for input fields */
-            background-color: rgba(240, 248, 255, 0.9); /* Light blue background */
+            border: 1px solid #007BFF; 
+            background-color: rgba(240, 248, 255, 0.9);
             border-radius: 5px;
             font-size: 16px;
         }
 
-        /* Button styling */
         button {
             width: 50%;
             padding: 10px;
@@ -66,22 +61,19 @@
             transform: scale(1.05);
         }
 
-        /* Error messages */
         .error {
             color: red;
             font-size: 12px;
             margin-bottom: 10px;
         }
 
-        /* Result section */
         .result {
             margin-top: 20px;
             font-size: 18px;
             font-weight: bold;
             color: #007BFF;
         }
-
-        /* Advanced styling for input focus */
+        
         input:focus {
             outline: none;
             border-color: #0056b3;
@@ -121,9 +113,9 @@
         }
 
         function monthOffset(month, year) {
-            const monthOffsets = [3, 0, 3, 2, 3, 2, 3, 3, 2, 3, 2, 3]; // Normal year offsets
+            const monthOffsets = [3, 0, 3, 2, 3, 2, 3, 3, 2, 3, 2, 3];
             if (isLeapYear(year)) {
-                monthOffsets[1] = 1; // Adjust for February in leap year
+                monthOffsets[1] = 1; 
             }
             let offset = 0;
             for (let i = 0; i < month; i++) {
@@ -137,7 +129,6 @@
             const month = parseInt(document.getElementById("month").value, 10);
             const year = parseInt(document.getElementById("year").value, 10);
 
-            // Reset error messages
             document.getElementById("dayError").textContent = "";
             document.getElementById("monthError").textContent = "";
             document.getElementById("yearError").textContent = "";
@@ -165,7 +156,7 @@
             }
 
             const dayOffset = day % 7;
-            const monthOffsetValue = monthOffset(month - 1, year); // Convert to zero-indexed
+            const monthOffsetValue = monthOffset(month - 1, year);
             const yearOffsetValue = yearOffset(year - 1);
 
             const totalOffset = (dayOffset + monthOffsetValue + yearOffsetValue) % 7;
